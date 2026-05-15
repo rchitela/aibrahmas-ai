@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <!-- Security Meta Tags -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; script-src 'self' 'unsafe-inline'; connect-src 'none';" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="DENY" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
+
+  <!-- SEO -->
+  <title>AI Brahmas LLC | Intelligent AI Solutions for the Modern Enterprise</title>
+  <meta name="description" content="AI Brahmas LLC delivers cutting-edge artificial intelligence solutions — from strategy and automation to custom AI model development for enterprises." />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="AI Brahmas LLC" />
+  <meta property="og:description" content="Intelligent AI Solutions for the Modern Enterprise" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.aibrahmas.com" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Reset & Variables ─────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #04060F;
+      --surface:    #090D1C;
+      --card:       #0D1225;
+      --border:     rgba(99,120,255,0.18);
+      --primary:    #6378FF;
+      --accent:     #00E5C3;
+      --gold:       #F5C842;
+      --text:       #E8EAFF;
+      --muted:      #7B80A8;
+      --nav-h:      70px;
+      --r:          14px;
+      --font-head:  'Syne', sans-serif;
+      --font-body:  'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* Noise texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: .5;
+    }
+
+    /* ── Scrollbar ─────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+
+    /* ── Utility ───────────────────────────────────────── */
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+    /* ── Nav ───────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h);
+      background: rgba(4,6,15,0.82);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center;
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; max-width: 1160px; margin: 0 auto; padding: 0 24px;
+    }
+    .nav-logo {
+      font-family: var(--font-head);
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      text-decoration: none;
+      color: var(--text);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav-logo .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); display: inline-block; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.3)} }
+
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: .9rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 9px 22px;
+      font-size: .88rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .2s, transform .15s;
+    }
+    .nav-cta:hover { background: #7a8dff; transform: translateY(-1px); }
+
+    /* Hamburger */
+    .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); margin: 5px 0; border-radius: 2px; transition: .3s; }
+
+    /* ── Hero ──────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding-top: var(--nav-h);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Orb backgrounds */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(99,120,255,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .orb2 {
+      position: absolute;
+      bottom: -150px; left: -100px;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,229,195,.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+      align-items: center; width: 100%;
+    }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(99,120,255,.12);
+      border: 1px solid rgba(99,120,255,.3);
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-size: .8rem; font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 24px;
+      letter-spacing: .5px;
+    }
+    .badge::before { content: '◆'; font-size: .6rem; }
+
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 22px;
+    }
+    .hero h1 em { font-style: normal; color: var(--accent); }
+    .hero h1 .line2 { display: block; color: var(--primary); }
+
+    .hero-desc {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 480px;
+      margin-bottom: 36px;
+      line-height: 1.75;
+    }
+
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #8a9bff);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 14px 30px;
+      font-size: .95rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 0 28px rgba(99,120,255,.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(99,120,255,.5); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 14px 30px;
+      font-size: .95rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color .2s, background .2s;
+    }
+    .btn-outline:hover { border-color: var(--primary); background: rgba(99,120,255,.08); }
+
+    /* Hero visual */
+    .hero-visual {
+      display: flex; justify-content: center; align-items: center;
+      position: relative;
+    }
+    .ai-brain {
+      width: 340px; height: 340px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, var(--primary), var(--accent), var(--primary), var(--surface), var(--primary));
+      padding: 3px;
+      animation: spin 18s linear infinite;
+      position: relative;
+    }
+    @keyframes spin { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+    .ai-brain-inner {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      background: var(--surface);
+      display: flex; align-items: center; justify-content: center;
+      animation: spin 18s linear infinite reverse;
+    }
+    .ai-brain-inner svg { width: 160px; height: 160px; }
+
+    /* Stats strip */
+    .stats-strip {
+      display: flex; gap: 40px;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+    .stat-item strong { font-family: var(--font-head); font-size: 1.8rem; font-weight: 800; color: var(--accent); display: block; }
+    .stat-item span { font-size: .82rem; color: var(--muted); }
+
+    /* ── Section Titles ────────────────────────────────── */
+    .section-label {
+      display: inline-block;
+      font-size: .75rem; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .section-sub { color: var(--muted); max-width: 560px; font-size: 1rem; line-height: 1.7; }
+
+    /* ── Services ──────────────────────────────────────── */
+    .services { padding: 110px 0; }
+    .services-header { text-align: center; margin-bottom: 64px; }
+    .services-header .section-sub { margin: 0 auto; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .service-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .25s, transform .2s;
+    }
+    .service-card:hover { border-color: var(--primary); transform: translateY(-4px); }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      opacity: 0;
+      transition: opacity .25s;
+    }
+    .service-card:hover::before { opacity: 1; }
+
+    .service-icon {
+      width: 52px; height: 52px;
+      border-radius: 12px;
+      background: rgba(99,120,255,.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+    .service-card h3 {
+      font-family: var(--font-head);
+      font-size: 1.1rem; font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .service-card p { color: var(--muted); font-size: .9rem; line-height: 1.65; }
+
+    /* ── Why Us ────────────────────────────────────────── */
+    .why { padding: 100px 0; background: var(--surface); }
+    .why-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .why-list { list-style: none; margin-top: 32px; display: flex; flex-direction: column; gap: 20px; }
+    .why-list li {
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .check {
+      width: 28px; height: 28px; border-radius: 8px;
+      background: rgba(0,229,195,.12);
+      border: 1px solid rgba(0,229,195,.3);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: var(--accent); font-size: .85rem; font-weight: 700;
+    }
+    .why-list li div { flex: 1; }
+    .why-list li strong { display: block; font-size: .95rem; font-weight: 600; margin-bottom: 4px; }
+    .why-list li p { color: var(--muted); font-size: .87rem; }
+
+    /* Visual panel */
+    .why-visual {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .metric-row {
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(255,255,255,.03);
+      border-radius: 10px;
+      padding: 14px 18px;
+    }
+    .metric-row .label { font-size: .85rem; color: var(--muted); }
+    .metric-row .bar-wrap { flex: 1; margin: 0 20px; height: 6px; background: rgba(255,255,255,.06); border-radius: 3px; overflow: hidden; }
+    .metric-row .bar { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--primary), var(--accent)); animation: growBar 1.5s ease forwards; transform-origin: left; }
+    @keyframes growBar { from{width:0} }
+    .metric-row .val { font-family: var(--font-head); font-size: .95rem; font-weight: 700; color: var(--accent); min-width: 42px; text-align: right; }
+
+    /* ── Team / About ──────────────────────────────────── */
+    .about { padding: 110px 0; }
+    .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+    }
+    .about-avatar {
+      width: 88px; height: 88px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      margin: 0 auto 20px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+    }
+    .about-card h3 { font-family: var(--font-head); font-size: 1.2rem; font-weight: 700; margin-bottom: 4px; }
+    .about-card .role { color: var(--accent); font-size: .85rem; margin-bottom: 16px; }
+    .about-card p { color: var(--muted); font-size: .88rem; line-height: 1.65; }
+
+    /* ── Contact ───────────────────────────────────────── */
+    .contact { padding: 110px 0; background: var(--surface); }
+    .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .contact-info { display: flex; flex-direction: column; gap: 28px; margin-top: 32px; }
+    .contact-item { display: flex; gap: 16px; align-items: flex-start; }
+    .contact-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: rgba(99,120,255,.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .contact-item strong { display: block; font-size: .85rem; color: var(--muted); margin-bottom: 2px; }
+    .contact-item a, .contact-item span { color: var(--text); font-size: .95rem; text-decoration: none; }
+    .contact-item a:hover { color: var(--accent); }
+
+    /* Form */
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-size: .82rem; color: var(--muted); font-weight: 500; }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: .9rem;
+      outline: none;
+      transition: border-color .2s;
+      width: 100%;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--primary); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-submit {
+      background: linear-gradient(135deg, var(--primary), #8a9bff);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 14px 32px;
+      font-size: .95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+      align-self: flex-start;
+    }
+    .form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(99,120,255,.4); }
+
+    /* ── Footer ────────────────────────────────────────── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 56px 0 32px;
+    }
+    .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand { display: flex; flex-direction: column; gap: 14px; }
+    .footer-logo { font-family: var(--font-head); font-size: 1.2rem; font-weight: 800; color: var(--text); }
+    .footer-brand p { color: var(--muted); font-size: .88rem; line-height: 1.65; max-width: 260px; }
+    .footer-col h4 { font-size: .82rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a { color: var(--muted); text-decoration: none; font-size: .88rem; transition: color .2s; }
+    .footer-col ul a:hover { color: var(--text); }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      color: var(--muted); font-size: .82rem;
+    }
+    .footer-bottom a { color: var(--muted); text-decoration: none; }
+    .footer-bottom a:hover { color: var(--text); }
+
+    /* ── Responsive ────────────────────────────────────── */
+    @media(max-width: 900px) {
+      .hero-inner, .why-inner, .about-inner, .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+      .hero-visual { display: none; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .stats-strip { gap: 24px; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: block; }
+    }
+    @media(max-width: 560px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* ── Fade-in animation ─────────────────────────────── */
+    .fade-in { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ──────────────────────────────────────── -->
+<nav role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo" aria-label="AI Brahmas LLC Home">
+      <span class="dot" aria-hidden="true"></span>
+      AI Brahmas
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#why">Why Us</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Get Started</a>
+    <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── Hero ────────────────────────────────────────────── -->
+<section class="hero" id="home" aria-labelledby="hero-heading">
+  <div class="orb2" aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="badge" aria-label="Company type">AI Consulting &amp; Solutions</div>
+        <h1 id="hero-heading">
+          Build Smarter with
+          <em>Artificial</em>
+          <span class="line2">Intelligence</span>
+        </h1>
+        <p class="hero-desc">
+          AI Brahmas LLC delivers enterprise-grade AI strategy, automation, and
+          custom model development that transforms how your business operates
+          and competes in the digital era.
+        </p>
+        <div class="hero-btns">
+          <a href="#contact" class="btn-primary">Request a Consultation</a>
+          <a href="#services" class="btn-outline">Our Services</a>
+        </div>
+        <div class="stats-strip">
+          <div class="stat-item"><strong>50+</strong><span>Projects Delivered</span></div>
+          <div class="stat-item"><strong>98%</strong><span>Client Satisfaction</span></div>
+          <div class="stat-item"><strong>5+</strong><span>Years Experience</span></div>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="ai-brain">
+          <div class="ai-brain-inner">
+            <svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="80" cy="80" r="36" stroke="#6378FF" stroke-width="2" stroke-dasharray="6 4"/>
+              <circle cx="80" cy="80" r="20" fill="rgba(99,120,255,0.15)" stroke="#00E5C3" stroke-width="1.5"/>
+              <circle cx="80" cy="80" r="8" fill="#6378FF"/>
+              <line x1="80" y1="44" x2="80" y2="20" stroke="#6378FF" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="80" y1="116" x2="80" y2="140" stroke="#00E5C3" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="44" y1="80" x2="20" y2="80" stroke="#6378FF" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="116" y1="80" x2="140" y2="80" stroke="#00E5C3" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="80" cy="20" r="5" fill="#6378FF"/>
+              <circle cx="80" cy="140" r="5" fill="#00E5C3"/>
+              <circle cx="20" cy="80" r="5" fill="#6378FF"/>
+              <circle cx="140" cy="80" r="5" fill="#00E5C3"/>
+              <line x1="54.9" y1="54.9" x2="35.4" y2="35.4" stroke="#6378FF" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="105.1" y1="105.1" x2="124.6" y2="124.6" stroke="#00E5C3" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="35.4" cy="35.4" r="5" fill="#6378FF"/>
+              <circle cx="124.6" cy="124.6" r="5" fill="#00E5C3"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Services ─────────────────────────────────────────── -->
+<section class="services" id="services" aria-labelledby="services-heading">
+  <div class="container">
+    <div class="services-header fade-in">
+      <span class="section-label">What We Do</span>
+      <h2 class="section-title" id="services-heading">AI Solutions for Every Challenge</h2>
+      <p class="section-sub">From strategy to deployment, we deliver end-to-end AI services tailored to your industry and goals.</p>
+    </div>
+    <div class="services-grid">
+      <article class="service-card fade-in">
+        <div class="service-icon" aria-hidden="true">🧠</div>
+        <h3>AI Strategy &amp; Consulting</h3>
+        <p>We assess your current operations and design a custom AI roadmap that delivers measurable ROI across your enterprise.</p>
+      </article>
+      <article class="service-card fade-in">
+        <div class="service-icon" aria-hidden="true">⚙️</div>
+        <h3>Process Automation</h3>
+        <p>Intelligent workflow automation using LLMs, RPA, and ML pipelines — cutting costs and eliminating manual bottlenecks.</p>
+      </article>
+      <article class="service-card fade-in">
+        <div class="service-icon" aria-hidden="true">📊</div>
+        <h3>Predictive Analytics</h3>
+        <p>Data-driven forecasting models that surface insights hidden in your business data — powering better decisions faster.</p>
+      </article>
+      <article class="service-card fade-in">
+        <div class="service-icon" aria-hidden="true">🤖</div>
+        <h3>Custom AI Model Dev</h3>
+        <p>Fine-tuned language models, computer vision, and domain-specific AI trained on your data for your specific use cases.</p>
+      </article>
+      <article class="service-card fade-in">
+        <div class="service-icon" aria-hidden="true">🔗</div>
+        <h3>AI Integration &amp; APIs</h3>
+        <p>Seamlessly integrate OpenAI, Anthropic, Google AI and custom models into your existing product stack and workflows.</p>
+      </article>
+      <article class="service-card fade-in">
+        <div class="service-icon" aria-hidden="true">🛡️</div>
+        <h3>AI Governance &amp; Ethics</h3>
+        <p>Responsible AI frameworks ensuring compliance, bias mitigation, transparency, and alignment with industry standards.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ── Why Us ────────────────────────────────────────────── -->
+<section class="why" id="why" aria-labelledby="why-heading">
+  <div class="container">
+    <div class="why-inner">
+      <div class="why-content fade-in">
+        <span class="section-label">Why AI Brahmas</span>
+        <h2 class="section-title" id="why-heading">Built on Expertise.<br/>Driven by Results.</h2>
+        <ul class="why-list">
+          <li>
+            <div class="check" aria-hidden="true">✓</div>
+            <div><strong>Deep Technical Expertise</strong><p>Our team holds advanced credentials in ML, NLP, and cloud AI platforms from AWS, GCP, and Azure.</p></div>
+          </li>
+          <li>
+            <div class="check" aria-hidden="true">✓</div>
+            <div><strong>Industry-Specific Solutions</strong><p>We've delivered AI projects across healthcare, finance, legal, logistics, and SaaS sectors.</p></div>
+          </li>
+          <li>
+            <div class="check" aria-hidden="true">✓</div>
+            <div><strong>Security-First Approach</strong><p>Enterprise-grade security, SOC 2 alignment, and data privacy built into every solution we deliver.</p></div>
+          </li>
+          <li>
+            <div class="check" aria-hidden="true">✓</div>
+            <div><strong>Transparent Partnership</strong><p>No black boxes. We document everything, train your team, and ensure you own every deliverable.</p></div>
+          </li>
+        </ul>
+      </div>
+      <div class="why-visual fade-in" aria-label="Performance metrics">
+        <div class="metric-row">
+          <span class="label">Model Accuracy</span>
+          <div class="bar-wrap"><div class="bar" style="width:94%" role="progressbar" aria-valuenow="94" aria-valuemin="0" aria-valuemax="100"></div></div>
+          <span class="val">94%</span>
+        </div>
+        <div class="metric-row">
+          <span class="label">Cost Reduction</span>
+          <div class="bar-wrap"><div class="bar" style="width:78%" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div></div>
+          <span class="val">78%</span>
+        </div>
+        <div class="metric-row">
+          <span class="label">Time to Deploy</span>
+          <div class="bar-wrap"><div class="bar" style="width:85%" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div></div>
+          <span class="val">85%</span>
+        </div>
+        <div class="metric-row">
+          <span class="label">Client Retention</span>
+          <div class="bar-wrap"><div class="bar" style="width:98%" role="progressbar" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100"></div></div>
+          <span class="val">98%</span>
+        </div>
+        <div class="metric-row">
+          <span class="label">ROI Achieved</span>
+          <div class="bar-wrap"><div class="bar" style="width:88%" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div></div>
+          <span class="val">88%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── About / Team ──────────────────────────────────────── -->
+<section class="about" id="about" aria-labelledby="about-heading">
+  <div class="container">
+    <div class="about-inner">
+      <div class="fade-in">
+        <span class="section-label">About Us</span>
+        <h2 class="section-title" id="about-heading">AI Experts.<br/>Real-World Results.</h2>
+        <p class="section-sub" style="margin-bottom:24px;">
+          AI Brahmas LLC was founded with a singular mission: to make advanced artificial intelligence
+          accessible, practical, and profitable for every business. We bridge the gap between
+          research and real-world implementation.
+        </p>
+        <p style="color:var(--muted);font-size:.92rem;line-height:1.75;">
+          Our multidisciplinary team combines experience from top AI research labs, Fortune 500
+          companies, and high-growth startups to deliver solutions that actually move the needle.
+          We don't sell hype — we deliver working AI systems.
+        </p>
+      </div>
+      <div class="about-card fade-in">
+        <div class="about-avatar" aria-hidden="true">🚀</div>
+        <h3>Our Approach</h3>
+        <p class="role">Discover → Design → Deploy → Optimize</p>
+        <p>We start with deep discovery of your business goals, design a data-driven solution, deploy with rigorous testing, and continuously optimize for peak performance — all with full transparency at every stage.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact ───────────────────────────────────────────── -->
+<section class="contact" id="contact" aria-labelledby="contact-heading">
+  <div class="container">
+    <div class="contact-inner">
+      <div>
+        <span class="section-label">Get In Touch</span>
+        <h2 class="section-title" id="contact-heading">Ready to Transform<br/>with AI?</h2>
+        <p class="section-sub" style="margin-bottom:0;">Tell us about your project and we'll respond within 24 hours with a tailored consultation plan.</p>
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon" aria-hidden="true">📧</div>
+            <div>
+              <strong>Email</strong>
+              <a href="mailto:hello@aibrahmas.com">hello@aibrahmas.com</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon" aria-hidden="true">📍</div>
+            <div>
+              <strong>Location</strong>
+              <span>United States</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon" aria-hidden="true">💼</div>
+            <div>
+              <strong>LinkedIn</strong>
+              <a href="https://linkedin.com/company/aibrahmas" rel="noopener noreferrer" target="_blank">linkedin.com/company/aibrahmas</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <form class="contact-form" id="contactForm" novalidate aria-label="Contact form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">First Name *</label>
+            <input type="text" id="fname" name="firstName" required autocomplete="given-name" placeholder="John" />
+          </div>
+          <div class="form-group">
+            <label for="lname">Last Name *</label>
+            <input type="text" id="lname" name="lastName" required autocomplete="family-name" placeholder="Smith" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Business Email *</label>
+          <input type="email" id="email" name="email" required autocomplete="email" placeholder="john@company.com" />
+        </div>
+        <div class="form-group">
+          <label for="company">Company</label>
+          <input type="text" id="company" name="company" autocomplete="organization" placeholder="Acme Corp" />
+        </div>
+        <div class="form-group">
+          <label for="service">Service of Interest</label>
+          <select id="service" name="service">
+            <option value="">Select a service…</option>
+            <option value="strategy">AI Strategy &amp; Consulting</option>
+            <option value="automation">Process Automation</option>
+            <option value="analytics">Predictive Analytics</option>
+            <option value="custom">Custom AI Development</option>
+            <option value="integration">AI Integration &amp; APIs</option>
+            <option value="governance">AI Governance</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Tell us about your project *</label>
+          <textarea id="message" name="message" required placeholder="Describe your challenge, goals, and any relevant context…" maxlength="2000"></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Message →</button>
+        <div id="form-status" role="status" aria-live="polite" style="font-size:.85rem;color:var(--accent);display:none;"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ────────────────────────────────────────────── -->
+<footer role="contentinfo">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">AI Brahmas LLC</div>
+        <p>Enterprise AI solutions that deliver measurable results. Transforming businesses through intelligent automation and advanced analytics.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">AI Strategy</a></li>
+          <li><a href="#services">Automation</a></li>
+          <li><a href="#services">Analytics</a></li>
+          <li><a href="#services">Custom AI</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#why">Why Us</a></li>
+          <li><a href="#contact">Careers</a></li>
+          <li><a href="#contact">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 AI Brahmas LLC. All rights reserved.</span>
+      <a href="mailto:hello@aibrahmas.com">hello@aibrahmas.com</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ── JavaScript: Secure & Minimal ─────────────────────── -->
+<script>
+  'use strict';
+
+  // ── Intersection Observer for fade-in ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // ── Hamburger menu ──
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks  = document.querySelector('.nav-links');
+  hamburger?.addEventListener('click', () => {
+    const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+    hamburger.setAttribute('aria-expanded', String(!expanded));
+    navLinks?.classList.toggle('open');
+  });
+
+  // ── Form validation & sanitizer ──
+  function sanitize(str) {
+    const map = { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#x27;' };
+    return String(str).replace(/[&<>"']/g, m => map[m]);
+  }
+
+  document.getElementById('contactForm')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form   = e.target;
+    const status = document.getElementById('form-status');
+    const fields = ['fname','lname','email','message'];
+    let valid = true;
+
+    // Clear previous errors
+    form.querySelectorAll('.error-msg').forEach(el => el.remove());
+    form.querySelectorAll('input, textarea').forEach(el => el.style.borderColor = '');
+
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const val = el.value.trim();
+      if (!val || (id === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val))) {
+        valid = false;
+        el.style.borderColor = '#FF6B6B';
+        const msg = document.createElement('span');
+        msg.className = 'error-msg';
+        msg.style.cssText = 'font-size:.78rem;color:#FF6B6B;margin-top:2px;display:block;';
+        msg.textContent = id === 'email' ? 'Enter a valid email address.' : 'This field is required.';
+        el.parentNode.appendChild(msg);
+      }
+    });
+
+    if (!valid) return;
+
+    const btn = form.querySelector('.form-submit');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    status.style.display = 'none';
+
+    // Simulate send (replace with actual endpoint)
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.textContent = 'Send Message →';
+      status.style.display = 'block';
+      status.textContent = '✓ Message sent! We\'ll be in touch within 24 hours.';
+      form.reset();
+    }, 1200);
+  });
+</script>
+</body>
+</html>
